@@ -39,6 +39,8 @@ function required_delta_v = calculate_reachability(sat_pos, sat_vel, threat_pos,
     
     % Iterative solver for Universal Variable 'z'
     while iter < max_iter
+        iter = iter + 1; % Increment here to prevent infinite loops on continue
+        
         [C, S] = stumpff_functions(z);
         
         y = r1 + r2 - A * (1 - z*S) / sqrt(C);
@@ -64,7 +66,6 @@ function required_delta_v = calculate_reachability(sat_pos, sat_vel, threat_pos,
         end
         
         z = (z_up + z_low) / 2;
-        iter = iter + 1;
     end
     
     % Calculate Lagrange coefficients
